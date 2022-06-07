@@ -8,7 +8,6 @@ import "fmt"
 Human (аналог наследования).
 */
 
-// Родительская структура
 type Human struct{
 	Name string
 	Surname string
@@ -23,9 +22,8 @@ func (h *Human) Birthday(){
 	h.Age++
 }
 
-// Дочерняя структура
 type Action struct{
-	Human
+	Human // встраивание структуры Human
 }
 
 func main(){

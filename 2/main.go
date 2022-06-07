@@ -16,13 +16,13 @@ func PrintSliceSqr (arr []int){
 	}
 	var wg sync.WaitGroup
 	for i := 0; i < len(arr); i++{
-		wg.Add(1)
+		wg.Add(1) //на каждой итерации добавляем в список одну горутину
 		go func (i int){
-			defer wg.Done()
+			defer wg.Done()//по завершении убираем одну горутину из списка
 			fmt.Println(arr[i]*arr[i])
 		}(i)
 	}
-	wg.Wait()
+	wg.Wait()//ждем завершение все горутин
 }
 
 func main(){

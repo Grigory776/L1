@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 Дана последовательность чисел: 2,4,6,8,10. Найти сумму их
@@ -9,18 +11,17 @@ import "fmt"
 
 func SumSquares (arr []int)(sum int){
 	ch := make(chan int)
-	defer close(ch)
 	go func(){
 		for _, val := range arr{
-			go func(i int){
-				ch <- (i*i)
+			go func(val int){
+				ch <- (val*val) //отдельно запускаем все горутины, которые производят вычисление
 			}(val)
 		}
 	}()
-	for i:=0; i < len(arr); i++ {
-		tmp := <- ch
-		sum += tmp
+	for i:=0; i < len(arr); i++{ //получаем значение от горутин len(arr) раз
+		sum+= <-ch
 	}
+	close(ch)
 	return sum
 }
 
